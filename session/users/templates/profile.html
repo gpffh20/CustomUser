@@ -1,0 +1,39 @@
+<h1>프로필</h1>
+<hr />
+
+<h2>계정 정보</h2>
+<p>아이디: {{ user.username }}</p>
+<hr />
+
+<h2>프로필 정보</h2>
+<form
+  method="post"
+  enctype="multipart/form-data"
+  action="{% url 'users:profile' %}"
+>
+  {% csrf_token %}
+  <label for="nickname">닉네임:</label>
+  <input
+    type="text"
+    name="nickname"
+    id="nickname"
+    value="{{ profile.nickname }}"
+  /><br /><br />
+
+  <label for="image">프로필 사진:</label>
+
+  <img
+    src="https://www.kukinews.com/data/kuk/image/2021/07/20/kuk202107200240.620x.0.jpg"
+    width="300"
+    alt="프로필 사진"
+    width="100"
+  /><br />
+  {% if profile.image %}
+  <label> <input type="checkbox" name="rm_image" /> 사진 삭제 </label
+  ><br /><br />
+  {% endif %}
+  <input type="file" name="image" id="image" /><br /><br />
+  <button type="submit">저장</button>
+</form>
+
+<a href="{% url 'home' %}">홈으로 가기</a>

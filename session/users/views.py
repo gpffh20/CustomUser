@@ -37,6 +37,21 @@ def signout(request):
     logout(request)
     return redirect("home")
 
+def profile(request):
+    create_profile = Profile.objects.get_or_create(user=request.user)
+    return render(request, 'profile.html', {"profile":profile})
+
+def create_profile(request):
+    create_profile = Profile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        profile.nickname = request.POST.get('nickname')
+        profile.image = request.FILES.get('image')
+        profile.save()
+        return redirect('users:profile')
+
+    return render(request, 'profile.html', {'profile': profile})
+
+        
 
 # # 회원가입
 # def signup(request):
